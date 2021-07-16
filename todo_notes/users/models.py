@@ -8,3 +8,9 @@ class Users(models.Model):
     email = models.EmailField(max_length=70, blank=False, unique=True)
     date_creation = models.PositiveIntegerField(verbose_name='Дата создания записи')
     birthday_year = models.DateField(verbose_name='Дата рождения', blank=True, null=True)
+    GENDER_TYPE = (
+        (1, "Мужской"),
+        (2, "Женский"),
+        (3, "Не определен"),
+    )
+    gender = models.IntegerField(verbose_name='Пол', choices=GENDER_TYPE, default=3)

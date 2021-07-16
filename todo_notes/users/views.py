@@ -3,6 +3,10 @@ from .models import Users
 from .serializers import UserModelSerializer
 
 
-class UserModelViewSet(generics.CreateAPIView):
-    queryset = Users.objects.all()
+class UserCreateView(generics.CreateAPIView):
     serializer_class = UserModelSerializer
+
+
+class UserListView(generics.ListAPIView):
+    serializer_class = UserModelSerializer
+    queryset = Users.objects.all()

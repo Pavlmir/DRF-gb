@@ -1,8 +1,8 @@
-from django.contrib import admin
-from django.urls import path, include
-from .views import UserModelViewSet
+from django.urls import path
+from .views import UserCreateView, UserListView
 
 app_name = "user"
 urlpatterns = [
-    path('user/create/', UserModelViewSet.as_view()),
+    path('user/create/', UserCreateView.as_view()),
+    path('all/', UserListView.as_view()),
 ]
