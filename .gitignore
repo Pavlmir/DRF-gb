@@ -236,3 +236,5 @@ pnpm-debug.log*
 *.sw?
 
 todo_notes/db.sqlite3
+/frontend/.vscode/
+/frontend/node_modules/
