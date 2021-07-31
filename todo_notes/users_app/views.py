@@ -11,5 +11,5 @@ class UserViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin, mixins.Retriev
     RetrieveModelMixin - возвращает один объект
     '''
     serializer_class = UserModelSerializer
-    queryset = Users.objects.all()
+    queryset = Users.objects.get_queryset().order_by('id')
 

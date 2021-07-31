@@ -1,8 +1,9 @@
 <template>
   <div>
     <h1>Список пользователей</h1>
-    <button type="button" name="button" @click="getUsers">Обновить список пользователей</button>
-    <!-- <button @click="createUser()" class="button">Создать</button> -->
+    <button type="button" name="button" @click="getUsers">
+      Обновить список пользователей
+    </button>
     <table>
       <thead>
         <tr>
@@ -16,28 +17,25 @@
         </tr>
       </thead>
       <tbody>
-        <users-items
-          v-for="item in users"
-          v-bind:user="item"
-          v-bind:key="item.email"
-        >
-        </users-items>
+        <tr v-for="user in users" v-bind:key="user.id">
+          <td>{{ user.username }}</td>
+          <td>{{ user.firstname }}</td>
+          <td>{{ user.lastname }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.date_creation }}</td>
+          <td>{{ user.birthday_year }}</td>
+          <td>{{ user.gender }}</td>
+        </tr>
       </tbody>
     </table>
-    <!-- <h1 @click="deleteUser(user)"></h1> -->
   </div>
 </template>
 
 <script>
-import UsersItems from "./UsersItems";
 import { UserApi } from "../api/users";
-// import axios from "axios";
 
 export default {
   name: "user-list",
-  components: {
-    "users-items": UsersItems,
-  },
   data() {
     return {
       users: [],
@@ -45,18 +43,18 @@ export default {
   },
   mounted() {
     // Получение списка пользователей
-    this.users = this.getUsers()
+    this.users = this.getUsers();
   },
   methods: {
     deleteUser(user) {
-      // попытается удалить заметку из нашех базы данных, отправив запрос к API
+      // попытается удалить объект из нашех базы данных, отправив запрос к API
       UserApi.delete(user);
     },
     createUser() {
       UserApi.create();
     },
     getUsers() {
-      UserApi.list().then(users => (this.users = users));
+      UserApi.list().then((results) => (this.users = results));
     },
   },
 };
