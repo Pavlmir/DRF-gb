@@ -4,7 +4,7 @@ from .views import ProjectViewSet, ToDoViewSet
 
 
 router = DefaultRouter()
-router.register(r'project', ProjectViewSet)
-router.register(r'todo', ToDoViewSet)
+router.register(r'projects/project', ProjectViewSet)
+router.register(r'todo-all/todo', ToDoViewSet)
 
 urlpatterns = router.urls
