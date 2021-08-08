@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <app-header :tabs="tabs" @change-tab="changeTab"> </app-header>
+    <app-header> </app-header>
 
     <div class="row">
       <div class="col-sm-1"></div>
@@ -23,13 +23,8 @@ export default {
     "app-footer": AppFooter,
   },
   data() {
-    return {
-    }
+    return {};
   },
-  methods: {
-    changeTab(tab) {
-      this.currentTab = tab.component;
-    },
-  },
+  methods: {},
 };
 </script>
