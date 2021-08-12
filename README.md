@@ -11,3 +11,4 @@ Django REST framework
 10. GraphQl
 11. Работа с формами. Сборка проекта для production
 12. Развертывание проекта с Docker и docker-compose
+13. 
