@@ -35,14 +35,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles', # required for serving swagger ui's css/js
+    'django.contrib.staticfiles',  # required for serving swagger ui's css/js
     'rest_framework',
     'corsheaders',
     'users_app',
     'todo_app',
     'django_filters',
     'rest_framework.authtoken',
-    'drf_yasg'
+    'drf_yasg',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -163,4 +164,8 @@ REST_FRAMEWORK = {
 
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 
+}
+
+GRAPHENE = {
+    'SCHEMA': 'todo_notes.main_schema.schema',
 }
