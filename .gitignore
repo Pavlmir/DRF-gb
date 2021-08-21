@@ -239,3 +239,6 @@ todo_notes/db.sqlite3
 
 /front_vue/.vscode/
 /front_vue/node_modules/
+/front_vue/dist/
+
+/todo_notes/static_root/
