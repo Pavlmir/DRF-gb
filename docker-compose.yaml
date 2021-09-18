@@ -1,0 +1,46 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:13.4
+    privileged: true
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: db
+  adminer:
+    image: adminer:4.7.8-standalone
+    restart: always
+    ports:
+      - 8090:8090
+    depends_on:
+      - db
+  backend:
+    build: ./todo_notes
+    privileged: true
+    expose:
+      - 8080
+    command: bash -c "
+      ./wait-for-postgres.sh db
+      && python manage.py makemigrations
+      && python manage.py migrate auth
+      && python manage.py migrate --run-syncdb
+      && gunicorn todo_notes.wsgi -b 0.0.0.0:8080
+      "
+    depends_on:
+      - db
+  nginx:
+    build: ./nginx
+    ports:
+      - 8000:81
+    depends_on:
+      - backend
+  frontend_static:
+    build: ./frontend_static
+    ports:
+      - 81:81
+    depends_on:
+      - nginx
