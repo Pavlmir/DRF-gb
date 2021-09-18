@@ -1,10 +1,12 @@
-from rest_framework import viewsets
+from rest_framework import generics
 from .models import Users
 from .serializers import UserModelSerializer
 
 
-# В классе ModelViewSet уже есть методы create, update, list, retrieve, delete методами
-class UserViewSet(viewsets.ModelViewSet):
+class UserCreateView(generics.CreateAPIView):
+    serializer_class = UserModelSerializer
+
+
+class UserListView(generics.ListAPIView):
     serializer_class = UserModelSerializer
     queryset = Users.objects.all()
-
