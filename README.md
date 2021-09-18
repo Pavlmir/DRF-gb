@@ -1,4 +1,4 @@
-Django REST framework
+# Django REST framework
 1. Введение в REST и Django REST Framework
 2. Введение в React. Компонентный подход
 3. Serializers. Renderers. Routers
