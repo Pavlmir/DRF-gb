@@ -17,7 +17,7 @@ class ProjectLimitOffsetPagination(LimitOffsetPagination):
 
 # В классе ModelViewSet уже есть методы create, update, list, retrieve, delete методами
 class ProjectViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.all()
+    queryset = Project.objects.get_queryset().order_by('id')
     serializer_class = ProjectModelSerializer
     pagination_class = ProjectLimitOffsetPagination
 
@@ -31,7 +31,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
 # В классе ModelViewSet уже есть методы create, update, list, retrieve, delete методами
 class ToDoViewSet(viewsets.ModelViewSet):
-    queryset = ToDo.objects.all()
+    queryset = ToDo.objects.get_queryset().order_by('id')
     serializer_class = ToDoModelSerializer
     pagination_class = ToDoLimitOffsetPagination
     filter_backends = [DjangoFilterBackend]
