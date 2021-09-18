@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import rest_framework.permissions
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -35,14 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles', # required for serving swagger ui's css/js
+    'django.contrib.staticfiles',  # required for serving swagger ui's css/js
     'rest_framework',
     'corsheaders',
     'users_app',
     'todo_app',
     'django_filters',
     'rest_framework.authtoken',
-    'drf_yasg'
+    'drf_yasg',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +64,9 @@ ROOT_URLCONF = 'todo_notes.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,6 +126,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static_root'
+STATICFILES_DIRS = (
+    BASE_DIR / 'static',
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -152,7 +161,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.AllowAny',
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -163,4 +173,8 @@ REST_FRAMEWORK = {
 
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 
+}
+
+GRAPHENE = {
+    'SCHEMA': 'todo_notes.main_schema.schema',
 }

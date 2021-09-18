@@ -10,9 +10,9 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('./components/Login.vue'),
-    meta: { 
+    meta: {
       guest: true
-      }
+    }
   },
   {
     path: '/projects',
@@ -33,7 +33,23 @@ const routes = [
     name: 'secure',
     component: () => import('./components/Secure.vue'),
     meta: {
-        requiresAuth: true
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/create-todo',
+    name: 'CreateTodo',
+    component: () => import('./components/CreateTodo.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/create-project',
+    name: 'CreateProject',
+    component: () => import('./components/CreateProject.vue'),
+    meta: {
+      requiresAuth: true
     }
   }
 ]

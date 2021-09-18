@@ -1,7 +1,15 @@
 <template>
   <div>
     <h1>Список проектов</h1>
-    <button type="button" name="button" @click="getProject">
+    <router-link :to="{ name: 'CreateProject' }">
+      <button class="btn btn-success">Создать</button>
+    </router-link>
+    <button
+      class="btn btn-primary"
+      type="button"
+      name="button"
+      @click="getProject"
+    >
       Обновить список проектов
     </button>
     <table>
@@ -10,13 +18,24 @@
           <th>Наименование</th>
           <th>Ссылка</th>
           <th>Пользователь</th>
+          <th></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="renderComponent">
         <tr v-for="project in projects" v-bind:key="project.id">
           <td>{{ project.name }}</td>
           <td>{{ project.link }}</td>
           <td>{{ project.users }}</td>
+          <td>
+            <button
+              class="btn btn-danger"
+              type="button"
+              name="button"
+              @click="delProject(project.id)"
+            >
+              Удалить
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -31,15 +50,28 @@ export default {
   data() {
     return {
       projects: [],
+      renderComponent: true,
     };
   },
   mounted() {
-    // Получение списка 
-    this.projects = this.getProject();
+    // Получение списка
+    this.getProject();
   },
   methods: {
-    getProject() {
-      ProjectApi.list().then((results) => (this.projects = results));
+    forceRerender() {
+      this.renderComponent = false;
+      this.$nextTick(() => {
+        this.renderComponent = true;
+      });
+    },
+    async getProject() {
+      let response = ProjectApi.list();
+      this.projects = await response;
+    },
+    async delProject(id) {
+      await ProjectApi.delete(id);
+      this.forceRerender();
+      this.getProject();
     },
   },
 };
